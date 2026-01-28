@@ -12,7 +12,7 @@ namespace Courier
             Console.ReadLine();
             while (true)
             {
-                loadGame();
+                LoadGame();
                 ShowMenu();
                 string input = Console.ReadLine();
 
@@ -25,10 +25,11 @@ namespace Courier
                 switch (opc)
                 {
                     case 1:
-                        showCouriers();
+                        // añadir validación, en caso de no tener ningun personaje creado, deshabilitar esta opcion
+                        ShowCouriers();
                         break;
                     case 2:
-                        
+                        CreateCourier();
                         break;
 
                     case 0:
@@ -43,19 +44,24 @@ namespace Courier
             }
         }
 
-        public static void loadGame()
+        public static void LoadGame()
         {
             // Iniciar partida
-            var courierClasses =  GetGameData<CourierClass>("Classes.json");
-            var enemies = GetGameData<Enemy>("Enemies.json");
-            var items = GetGameData<Item>("Items.json");
-            var player = GetGameData<Player>("Couriers.json");
-            var rooms = GetGameData<Room>("Rooms.json");
+            //var courierClasses =  GetGameData<CourierClass>("Classes.json");
+           // var enemies = GetGameData<Enemy>("Enemies.json");
+           // var items = GetGameData<Item>("Items.json");
+           // var player = GetGameData<Player>("Couriers.json");
+            //var rooms = GetGameData<Room>("Rooms.json");
         }
 
-        public static void showCouriers()
+        public static void ShowCouriers()
         {
 
+        }
+
+        public static void CreateCourier()
+        {
+            ShowClasses();
         }
     }
 
