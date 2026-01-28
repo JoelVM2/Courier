@@ -1,0 +1,74 @@
+{
+  "Enemies": [
+    {
+      "Name": "Guardia",
+      "Health": 5,
+      "Attack": 2,
+      "Armor": 1,
+      "Icon": " G \n/|\\\n/ \\"
+    },
+    {
+      "Name": "Ladrón",
+      "Health": 3,
+      "Attack": 1,
+      "Armor": 0,
+      "Icon": " L \n/|\\\n/ \\"
+    },
+    {
+      "Name": "Guardia Elite",
+      "Health": 8,
+      "Attack": 3,
+      "Armor": 2,
+      "Icon": "GE \n/|\\\n/ \\"
+    },
+    {
+      "Name": "Drón de Seguridad",
+      "Health": 4,
+      "Attack": 2,
+      "Armor": 1,
+      "Icon": " D \n[-]\n/ \\"
+    },
+    {
+      "Name": "Hacker Rival",
+      "Health": 5,
+      "Attack": 1,
+      "Armor": 0,
+      "Icon": "[H]\n/|\\\n/ \\"
+    },
+    {
+      "Name": "Mercenario",
+      "Health": 6,
+      "Attack": 3,
+      "Armor": 1,
+      "Icon": " M \n/|\\\n/ \\"
+    },
+    {
+      "Name": "Cámara Trampa",
+      "Health": 2,
+      "Attack": 2,
+      "Armor": 0,
+      "Icon": " C \n[■]\n/ \\"
+    },
+    {
+      "Name": "Robot de Limpieza",
+      "Health": 3,
+      "Attack": 1,
+      "Armor": 0,
+      "Icon": " R \n[~]\n/ \\"
+    },
+    {
+      "Name": "Bouncer",
+      "Health": 7,
+      "Attack": 3,
+      "Armor": 2,
+      "Icon": " B \n/█\\\n/ \\"
+    },
+    {
+      "Name": "Sniper",
+      "Health": 4,
+      "Attack": 4,
+      "Armor": 1,
+      "Icon": " S \n/|\\\n/^\\"
+    }
+  ]
+}

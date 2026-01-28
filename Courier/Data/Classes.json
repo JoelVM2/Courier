@@ -1,0 +1,29 @@
+[
+    {
+      "Name": "Runner",
+      "Health": 10,
+      "Attack": 3,
+      "Armor": 1,
+      "EvadeChance": 50,
+      "HackSkill": 40,
+      "Icon": " o \n/|>\n/ \\"
+    },
+    {
+      "Name": "Hacker",
+      "Health": 8,
+      "Attack": 2,
+      "Armor": 1,
+      "EvadeChance": 60,
+      "HackSkill": 60,
+      "Icon": "[o]\n/|\\\n/ \\"
+    },
+    {
+      "Name": "Tank",
+      "Health": 12,
+      "Attack": 4,
+      "Armor": 2,
+      "EvadeChance": 30,
+      "HackSkill": 20,
+      "Icon": "[O]\n/█\\\n/ \\"
+    }
+  ]

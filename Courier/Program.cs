@@ -1,5 +1,7 @@
 ﻿using System;
 using static Courier.View.MenuView;
+using static Courier.Controllers.GameController;
+using Courier.Model;
 namespace Courier
 {
     class Program
@@ -10,8 +12,8 @@ namespace Courier
             Console.ReadLine();
             while (true)
             {
+                loadGame();
                 ShowMenu();
-                Console.Write("Opción: ");
                 string input = Console.ReadLine();
 
                 if (!int.TryParse(input, out int opc))
@@ -23,7 +25,7 @@ namespace Courier
                 switch (opc)
                 {
                     case 1:
-
+                        showCouriers();
                         break;
                     case 2:
                         
@@ -40,5 +42,21 @@ namespace Courier
 
             }
         }
+
+        public static void loadGame()
+        {
+            // Iniciar partida
+            var courierClasses =  GetGameData<CourierClass>("Classes.json");
+            var enemies = GetGameData<Enemy>("Enemies.json");
+            var items = GetGameData<Item>("Items.json");
+            var player = GetGameData<Player>("Couriers.json");
+            var rooms = GetGameData<Room>("Rooms.json");
+        }
+
+        public static void showCouriers()
+        {
+
+        }
     }
+
 }

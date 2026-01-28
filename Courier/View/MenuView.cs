@@ -17,7 +17,7 @@ namespace Courier.View
 
         public static void ShowMenu()
         {
-            Console.Clear();
+           // Console.Clear();
             Console.WriteLine("╔════════════════════════╗");
             Console.WriteLine("║        COURIER         ║");
             Console.WriteLine("╠════════════════════════╣");
