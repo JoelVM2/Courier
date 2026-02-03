@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Courier.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -77,6 +78,56 @@ namespace Courier.View
             Console.ReadLine();
         }
 
+        public static void GetCourier(List<Player> couriers) 
+        {
+            Console.Clear();
+
+            Console.WriteLine("                                      ╔════════════════════════════════╗");
+            Console.WriteLine("                                      ║        COURIERS DISPONIBLES    ║");
+            Console.WriteLine("                                      ╠════════════════════════════════╣");
+            couriers.Select((c,i)=>new {Courier = c,Index = i}).ToList()
+            .ForEach(x =>
+            {
+                var c = x.Courier;
+                int i = x.Index;
+
+                Console.WriteLine($"                                      ║ {i + 1}. {c.Class,-27} ║");
+                Console.WriteLine($"                                      ║    Health: {c.Health,-16}    ║");
+                Console.WriteLine($"                                      ║    Attack: {c.Attack,-16}    ║");
+                Console.WriteLine($"                                      ║    Armor: {c.Armor,-17}    ║");
+                Console.WriteLine($"                                      ║    EvadeChance: {c.EvadeChance}%{"",-7}     ║");
+                Console.WriteLine($"                                      ║    HackSkill: {c.HackSkill}%{"",-8}      ║");
+                Console.WriteLine($"                                      ║    CritChance: {c.CritChance}%{"",-8}     ║");
+                Console.WriteLine($"                                      ║    Icon:{"",-22} ║");
+
+                DrawIcon(c.Icon);
+
+                if (i < couriers.Count - 1)
+                    Console.WriteLine("                                      ╠════════════════════════════════╣");
+                 
+                //couriers
+                //.Take(couriers.Count - 1)
+                //.ToList()
+                //.ForEach(c => Console.WriteLine("                                      ╠════════════════════════════════╣"));
+
+
+            });
+            Console.WriteLine("                                      ╚════════════════════════════════╝");
+            Console.WriteLine();
+            Console.Write("                                      Selecciona una clase: ");
+            Console.ReadLine();
+
+        }
+
+        private static void DrawIcon(string icon)
+        {
+            var lines = icon.Split('\n');
+
+            foreach (var line in lines)
+            {
+                Console.WriteLine($"                                      ║      {line,-26}║");
+            }
+        }
 
     }
 }

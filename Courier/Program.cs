@@ -50,13 +50,14 @@ namespace Courier
             //var courierClasses =  GetGameData<CourierClass>("Classes.json");
            // var enemies = GetGameData<Enemy>("Enemies.json");
            // var items = GetGameData<Item>("Items.json");
-           // var player = GetGameData<Player>("Couriers.json");
+           // var couriers = GetGameData<Player>("Couriers.json");
             //var rooms = GetGameData<Room>("Rooms.json");
         }
 
         public static void ShowCouriers()
         {
-
+            var couriers = GetGameData<Player>("Couriers.json");
+            GetCourier(couriers);
         }
 
         public static void CreateCourier()

@@ -1,5 +1,4 @@
-{
-  "Enemies": [
+[
     {
       "Name": "Guardia",
       "Health": 5,
@@ -71,4 +70,3 @@
       "Icon": " S \n/|\\\n/^\\"
     }
   ]
-}

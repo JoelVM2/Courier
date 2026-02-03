@@ -2,14 +2,24 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Courier.Model
 {
+
+    [JsonConverter(typeof(JsonStringEnumConverter))]
+    public enum CourierClassEnum
+    {
+        Runner,
+        Hacker,
+        Tank
+    }
+
     internal class Player
     {
         public string Name { get; set; }
-        public CourierClass Class { get; set; }
+        public CourierClassEnum Class { get; set; }
         public double Health { get; set; }
         public double Attack { get; set; }
         public double Armor { get; set; }

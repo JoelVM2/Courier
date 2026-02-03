@@ -1,5 +1,4 @@
-{
-  "Couriers": [
+[
     {
       "Name": "Courier Default",
       "Class": "Runner",
@@ -16,4 +15,3 @@
       "Icon": " o \n/|>\n/ \\"
     }
   ]
-}
