@@ -46,7 +46,7 @@ namespace Courier.View
             Console.WriteLine("                                      ║      ╰╮╰━╯┊╰━╯╭╯      ║");
             Console.WriteLine("                                      ║       ┃╱ ━━━ ╲┃       ║");
             Console.WriteLine("                                      ║      ┏┫ ━━━━━ ┣┓      ║");
-            Console.WriteLine("                                      ║   ┏━━┫╰┓╲ ━ ╱┏╯┣━━    ║");
+            Console.WriteLine("                                      ║   ┏━━┫╰┓╲ ━ ╱┏╯┣━━┓   ║");
             Console.WriteLine("                                      ║   ┃               ┃   ║");
             Console.WriteLine("                                      ╠═══════════════════════╣");
             Console.WriteLine("                                      ║   ¿Estás preparado?   ║");
