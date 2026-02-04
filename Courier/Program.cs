@@ -26,7 +26,8 @@ namespace Courier
                 {
                     case 1:
                         // añadir validación, en caso de no tener ningun personaje creado, deshabilitar esta opcion
-                        ShowCouriers();
+                        //ShowCouriers();
+                        NewMision();
                         break;
                     case 2:
                         CreateCourier();

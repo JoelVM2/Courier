@@ -31,10 +31,35 @@ namespace Courier.View
 
         }
 
+        public static void NewMision()
+        {
+            // Console.WriteLine("   ╭┳┳┳┳┳┳┳╮   \r\n   ┃╯╯╯╯╯╰╰┃   \r\n  ╭╋┳━┳━┳━┳╋╮  \r\n  ┃┓┃▇┃ ┃▇┃┏┃  \r\n  ╰╮╰━╯┊╰━╯╭╯  \r\n   ┃╱╰━━━╯╲┃   \r\n  ┏┫╰━━━━━╯┣┓  \r\n━━┫╰┓╲╰━╯╱┏╯┣━━");
+
+
+            Console.WriteLine("                                       NUEVA MISIÓN DISPONIBLE    ");
+            Console.WriteLine("                                      ╔═══════════════════════╗");
+            Console.WriteLine("                                      ║                       ║");
+            Console.WriteLine("                                      ║       ╭┳┳┳┳┳┳┳╮       ║");
+            Console.WriteLine("                                      ║       ┃╯╯╯╯╯╰╰┃       ║");
+            Console.WriteLine("                                      ║      ╭╋┳━┳━┳━┳╋╮      ║");
+            Console.WriteLine("                                      ║      ┃┓┃▇┃ ┃▇┃┏┃      ║");
+            Console.WriteLine("                                      ║      ╰╮╰━╯┊╰━╯╭╯      ║");
+            Console.WriteLine("                                      ║       ┃╱ ━━━ ╲┃       ║");
+            Console.WriteLine("                                      ║      ┏┫ ━━━━━ ┣┓      ║");
+            Console.WriteLine("                                      ║   ┏━━┫╰┓╲ ━ ╱┏╯┣━━    ║");
+            Console.WriteLine("                                      ║   ┃               ┃   ║");
+            Console.WriteLine("                                      ╠═══════════════════════╣");
+            Console.WriteLine("                                      ║   ¿Estás preparado?   ║");
+            Console.WriteLine("                                      ║ 1. Sí.                ║");
+            Console.WriteLine("                                      ║ 2. No.                ║");
+            Console.WriteLine("                                      ╚═══════════════════════╝");
+            Console.ReadLine();
+        }
+
         public static void ShowClasses()
         {
             Console.WriteLine("                                      ╔════════════════════════════════╗");
-            Console.WriteLine("                                      ║          CLASES DISPONIBLES    ║");
+            Console.WriteLine("                                      ║       CLASES DISPONIBLES       ║");
             Console.WriteLine("                                      ╠════════════════════════════════╣");
 
             Console.WriteLine("                                      ║ 1. Runner                      ║");
@@ -83,7 +108,7 @@ namespace Courier.View
             Console.Clear();
 
             Console.WriteLine("                                      ╔════════════════════════════════╗");
-            Console.WriteLine("                                      ║        COURIERS DISPONIBLES    ║");
+            Console.WriteLine("                                      ║     COURIERS DISPONIBLES       ║");
             Console.WriteLine("                                      ╠════════════════════════════════╣");
             couriers.Select((c,i)=>new {Courier = c,Index = i}).ToList()
             .ForEach(x =>
@@ -105,12 +130,6 @@ namespace Courier.View
                 if (i < couriers.Count - 1)
                     Console.WriteLine("                                      ╠════════════════════════════════╣");
                  
-                //couriers
-                //.Take(couriers.Count - 1)
-                //.ToList()
-                //.ForEach(c => Console.WriteLine("                                      ╠════════════════════════════════╣"));
-
-
             });
             Console.WriteLine("                                      ╚════════════════════════════════╝");
             Console.WriteLine();
