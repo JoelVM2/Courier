@@ -1,72 +1,106 @@
 [
-    {
-      "Name": "Guardia",
-      "Health": 5,
-      "Attack": 2,
-      "Armor": 1,
-      "Icon": " G \n/|\\\n/ \\"
-    },
-    {
-      "Name": "Ladrón",
-      "Health": 3,
-      "Attack": 1,
-      "Armor": 0,
-      "Icon": " L \n/|\\\n/ \\"
-    },
-    {
-      "Name": "Guardia Elite",
-      "Health": 8,
-      "Attack": 3,
-      "Armor": 2,
-      "Icon": "GE \n/|\\\n/ \\"
-    },
-    {
-      "Name": "Drón de Seguridad",
-      "Health": 4,
-      "Attack": 2,
-      "Armor": 1,
-      "Icon": " D \n[-]\n/ \\"
-    },
-    {
-      "Name": "Hacker Rival",
-      "Health": 5,
-      "Attack": 1,
-      "Armor": 0,
-      "Icon": "[H]\n/|\\\n/ \\"
-    },
-    {
-      "Name": "Mercenario",
-      "Health": 6,
-      "Attack": 3,
-      "Armor": 1,
-      "Icon": " M \n/|\\\n/ \\"
-    },
-    {
-      "Name": "Cámara Trampa",
-      "Health": 2,
-      "Attack": 2,
-      "Armor": 0,
-      "Icon": " C \n[■]\n/ \\"
-    },
-    {
-      "Name": "Robot de Limpieza",
-      "Health": 3,
-      "Attack": 1,
-      "Armor": 0,
-      "Icon": " R \n[~]\n/ \\"
-    },
-    {
-      "Name": "Bouncer",
-      "Health": 7,
-      "Attack": 3,
-      "Armor": 2,
-      "Icon": " B \n/█\\\n/ \\"
-    },
-    {
-      "Name": "Sniper",
-      "Health": 4,
-      "Attack": 4,
-      "Armor": 1,
-      "Icon": " S \n/|\\\n/^\\"
-    }
-  ]
+  {
+    "Name": "Poción Pequeña",
+    "Type": "Potion",
+    "Value": 3,
+    "Icon": "(!)"
+  },
+  {
+    "Name": "Poción Grande",
+    "Type": "Potion",
+    "Value": 5,
+    "Icon": "(!!)"
+  },
+  {
+    "Name": "Poción Curativa",
+    "Type": "Potion",
+    "Value": 4,
+    "Icon": "(+)"
+  },
+  {
+    "Name": "Poción Máxima",
+    "Type": "Potion",
+    "Value": 6,
+    "Icon": "(!!!)"
+  },
+  {
+    "Name": "Elixir de Vida",
+    "Type": "Potion",
+    "Value": 7,
+    "Icon": "(*)"
+  },
+  {
+    "Name": "Poción de Escudo",
+    "Type": "Potion",
+    "Value": 5,
+    "Icon": "(#)"
+  },
+
+  {
+    "Name": "Espada Básica",
+    "Type": "Weapon",
+    "Value": 2,
+    "Icon": "/|"
+  },
+  {
+    "Name": "Espada Fuerte",
+    "Type": "Weapon",
+    "Value": 4,
+    "Icon": "/||"
+  },
+  {
+    "Name": "Daga Rápida",
+    "Type": "Weapon",
+    "Value": 1,
+    "Icon": "/>"
+  },
+  {
+    "Name": "Hacha Ligera",
+    "Type": "Weapon",
+    "Value": 3,
+    "Icon": "//"
+  },
+  {
+    "Name": "Maza Pesada",
+    "Type": "Weapon",
+    "Value": 5,
+    "Icon": "/M"
+  },
+
+  {
+    "Name": "Armadura Ligera",
+    "Type": "Armor",
+    "Value": 1,
+    "Icon": "[L]"
+  },
+  {
+    "Name": "Armadura Pesada",
+    "Type": "Armor",
+    "Value": 3,
+    "Icon": "[H]"
+  },
+  {
+    "Name": "Casco Protector",
+    "Type": "Armor",
+    "Value": 2,
+    "Icon": "[C]"
+  },
+  {
+    "Name": "Armadura Completa",
+    "Type": "Armor",
+    "Value": 5,
+    "Icon": "[A]"
+  },
+  {
+    "Name": "Escudo de Acero",
+    "Type": "Armor",
+    "Value": 4,
+    "Icon": "[S]"
+  },
+  {
+    "Name": "Cota de Malla",
+    "Type": "Armor",
+    "Value": 3,
+    "Icon": "[M]"
+  }
+]
