@@ -30,12 +30,12 @@ namespace Courier.View
             Console.Write("                                      Selecciona una opción: ");
 
         }
+        // Console.WriteLine("   ╭┳┳┳┳┳┳┳╮   \r\n   ┃╯╯╯╯╯╰╰┃   \r\n  ╭╋┳━┳━┳━┳╋╮  \r\n  ┃┓┃▇┃ ┃▇┃┏┃  \r\n  ╰╮╰━╯┊╰━╯╭╯  \r\n   ┃╱╰━━━╯╲┃   \r\n  ┏┫╰━━━━━╯┣┓  \r\n━━┫╰┓╲╰━╯╱┏╯┣━━");
 
         public static void NewMision()
         {
-            // Console.WriteLine("   ╭┳┳┳┳┳┳┳╮   \r\n   ┃╯╯╯╯╯╰╰┃   \r\n  ╭╋┳━┳━┳━┳╋╮  \r\n  ┃┓┃▇┃ ┃▇┃┏┃  \r\n  ╰╮╰━╯┊╰━╯╭╯  \r\n   ┃╱╰━━━╯╲┃   \r\n  ┏┫╰━━━━━╯┣┓  \r\n━━┫╰┓╲╰━╯╱┏╯┣━━");
 
-
+            Console.Clear();
             Console.WriteLine("                                       NUEVA MISIÓN DISPONIBLE    ");
             Console.WriteLine("                                      ╔═══════════════════════╗");
             Console.WriteLine("                                      ║                       ║");
@@ -56,7 +56,7 @@ namespace Courier.View
             Console.ReadLine();
         }
 
-        public static void ShowClasses()
+        public static int ShowClasses()
         {
             Console.WriteLine("                                      ╔════════════════════════════════╗");
             Console.WriteLine("                                      ║       CLASES DISPONIBLES       ║");
@@ -100,7 +100,9 @@ namespace Courier.View
 
             Console.WriteLine();
             Console.Write("                                      Selecciona una clase: ");
-            Console.ReadLine();
+            
+            string input = Console.ReadLine();
+            return Int32.Parse(input);
         }
 
         public static void GetCourier(List<Player> couriers) 
@@ -135,6 +137,7 @@ namespace Courier.View
             Console.WriteLine();
             Console.Write("                                      Selecciona una clase: ");
             Console.ReadLine();
+            NewMision();
 
         }
 

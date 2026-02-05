@@ -12,6 +12,7 @@ namespace Courier
             Console.ReadLine();
             while (true)
             {
+                NewMision();
                 LoadGame();
                 ShowMenu();
                 string input = Console.ReadLine();
@@ -25,9 +26,9 @@ namespace Courier
                 switch (opc)
                 {
                     case 1:
-                        // añadir validación, en caso de no tener ningun personaje creado, deshabilitar esta opcion
+                        // añadir validación, en caso de no tener ningun personaje creado deshabilitar esta opcion
                         //ShowCouriers();
-                        NewMision();
+                        ShowCouriers();
                         break;
                     case 2:
                         CreateCourier();

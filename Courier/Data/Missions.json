@@ -1,0 +1,62 @@
+﻿[
+  {
+    "Id": 1,
+    "Title": "Entrega Express",
+    "Description": "Debes entregar un paquete sellado con documentos confidenciales en menos de 10 minutos. Cualquier retraso podría comprometer la operación."
+  },
+  {
+    "Id": 2,
+    "Title": "Zona Vigilada",
+    "Description": "Un paquete misterioso debe cruzar un edificio custodiado por guardias armados. Evitar confrontaciones es clave."
+  },
+  {
+    "Id": 3,
+    "Title": "Sistema Bloqueado",
+    "Description": "El paquete contiene un dispositivo de alta tecnología que debe ser entregado, pero las puertas electrónicas del edificio requieren hackeo rápido."
+  },
+  {
+    "Id": 4,
+    "Title": "Entrega Bajo Fuego",
+    "Description": "Una carga muy valiosa debe llegar intacta. Mercenarios hostiles patrullan la zona y cada decisión podría ser vital para sobrevivir."
+  },
+  {
+    "Id": 5,
+    "Title": "Contraseña Errónea",
+    "Description": "Un paquete digital requiere que ingreses una contraseña exacta bajo presión. Cada error podría bloquear la entrega."
+  },
+  {
+    "Id": 6,
+    "Title": "Edificio Abandonado",
+    "Description": "Se ha solicitado entregar un paquete antiguo en un edificio vacío. Cuidado con trampas y sistemas de seguridad olvidados."
+  },
+  {
+    "Id": 7,
+    "Title": "Entrega Ilegal",
+    "Description": "Un paquete con contenido prohibido debe ser transportado sin ser detectado. Cualquier intento de fuga fallido termina la misión."
+  },
+  {
+    "Id": 8,
+    "Title": "Cierre de Seguridad",
+    "Description": "Debes entregar un paquete que contiene planos secretos. Cada sala puede cerrarse automáticamente, y el tiempo es limitado."
+  },
+  {
+    "Id": 9,
+    "Title": "Paquete Explosivo",
+    "Description": "Un paquete volátil debe llegar intacto a su destino. Debes planear tu ruta con cuidado y evitar cualquier daño durante la entrega."
+  },
+  {
+    "Id": 10,
+    "Title": "Entrega Nocturna",
+    "Description": "El paquete debe ser entregado en un edificio desierto durante la noche. La visibilidad limitada hace que los enemigos sean más peligrosos."
+  },
+  {
+    "Id": 11,
+    "Title": "Carga Crítica",
+    "Description": "Un paquete con componentes médicos vitales debe llegar a su destino antes de que se deteriore. El tiempo corre y no hay margen de error."
+  },
+  {
+    "Id": 12,
+    "Title": "Entrega Encubierta",
+    "Description": "Un paquete confidencial debe pasar desapercibido entre múltiples edificios vigilados. Tu discreción será tan importante como tu velocidad."
+  }
+]
