@@ -32,7 +32,7 @@ namespace Courier.View
         }
         // Console.WriteLine("   ╭┳┳┳┳┳┳┳╮   \r\n   ┃╯╯╯╯╯╰╰┃   \r\n  ╭╋┳━┳━┳━┳╋╮  \r\n  ┃┓┃▇┃ ┃▇┃┏┃  \r\n  ╰╮╰━╯┊╰━╯╭╯  \r\n   ┃╱╰━━━╯╲┃   \r\n  ┏┫╰━━━━━╯┣┓  \r\n━━┫╰┓╲╰━╯╱┏╯┣━━");
 
-        public static void NewMision()
+        public static bool NewMision()
         {
 
             Console.Clear();
@@ -53,9 +53,11 @@ namespace Courier.View
             Console.WriteLine("                                      ║ 1. Sí.                ║");
             Console.WriteLine("                                      ║ 2. No.                ║");
             Console.WriteLine("                                      ╚═══════════════════════╝");
-            Console.ReadLine();
+
+            return Console.ReadLine() == "1";
         }
 
+        // Al crear un nuevo personaje guardarlo en json de couriers
         public static int ShowClasses()
         {
             Console.WriteLine("                                      ╔════════════════════════════════╗");
@@ -100,12 +102,11 @@ namespace Courier.View
 
             Console.WriteLine();
             Console.Write("                                      Selecciona una clase: ");
-            
-            string input = Console.ReadLine();
-            return Int32.Parse(input);
+
+            return int.Parse(Console.ReadLine());
         }
 
-        public static void GetCourier(List<Player> couriers) 
+        public static Player GetCourier(List<Player> couriers) 
         {
             Console.Clear();
 
@@ -136,19 +137,42 @@ namespace Courier.View
             Console.WriteLine("                                      ╚════════════════════════════════╝");
             Console.WriteLine();
             Console.Write("                                      Selecciona una clase: ");
-            Console.ReadLine();
-            NewMision();
 
+            int choice;
+            while (!int.TryParse(Console.ReadLine(), out choice)
+                   || choice < 1
+                   || choice > couriers.Count) ;
+
+            return couriers[choice - 1];
         }
 
         private static void DrawIcon(string icon)
         {
-            var lines = icon.Split('\n');
+            icon
+                .Split('\n')
+                .ToList()
+                .ForEach(line =>
+                    Console.WriteLine($"                                      ║      {line,-26}║")
+                );
+        }
+        public static void ShowDeath()
+        {
+            Console.Clear();
+            Console.WriteLine("=================================");
+            Console.WriteLine("           HAS MUERTO             ");
+            Console.WriteLine("=================================");
+            Console.WriteLine("\nPulsa ENTER para volver al menú");
+            Console.ReadLine();
+        }
 
-            foreach (var line in lines)
-            {
-                Console.WriteLine($"                                      ║      {line,-26}║");
-            }
+        public static void ShowVictory()
+        {
+            Console.Clear();
+            Console.WriteLine("=================================");
+            Console.WriteLine("      PAQUETE ENTREGADO           ");
+            Console.WriteLine("=================================");
+            Console.WriteLine("\nPulsa ENTER para continuar");
+            Console.ReadLine();
         }
 
     }

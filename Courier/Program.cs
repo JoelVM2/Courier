@@ -1,70 +1,71 @@
-﻿using System;
-using static Courier.View.MenuView;
-using static Courier.Controllers.GameController;
+﻿using Courier.Controllers;
 using Courier.Model;
+using Courier.View;
+using System.Linq;
+
 namespace Courier
 {
     class Program
     {
         static void Main(string[] args)
         {
-            IntroMenu();
+            MenuView.IntroMenu();
             Console.ReadLine();
+
             while (true)
             {
-                NewMision();
-                LoadGame();
-                ShowMenu();
-                string input = Console.ReadLine();
+                MenuView.ShowMenu();
 
-                if (!int.TryParse(input, out int opc))
-                {
-                    Console.WriteLine("Introduce un número válido.");
+                if (!int.TryParse(Console.ReadLine(), out int opc))
                     continue;
-                }
 
                 switch (opc)
                 {
                     case 1:
-                    
-                        ShowCouriers();
-                        break;
+                        {
+                            var couriers = GameController.GetGameData<Player>("Couriers.json");
+                            var player = MenuView.GetCourier(couriers);
+
+                            if (MenuView.NewMision())
+                                GameController.StartNewMission(player);
+
+                            break;
+                        }
+
                     case 2:
-                        CreateCourier();
-                        break;
+                        {
+                            int classChoice = MenuView.ShowClasses();
 
-                    case 0:
-                        Console.WriteLine("Saliendo...");
+                            var classes = GameController.GetGameData<CourierClass>("Classes.json");
+                            var chosenClass = classes[classChoice - 1];
+
+                            Player player = new Player
+                            {
+                                Name = "Courier",
+                                Class = (CourierClassEnum)(classChoice - 1),
+                                Health = chosenClass.Health,
+                                Attack = chosenClass.Attack,
+                                Armor = chosenClass.Armor,
+                                EvadeChance = chosenClass.EvadeChance,
+                                HackSkill = chosenClass.HackSkill,
+                                CritChance = 20,
+                                Items = new(),
+                                Icon = chosenClass.Icon,
+                                HasPackage = true,
+                                CurrentRoom = 0,
+                                CurrentBuilding = 1
+                            };
+
+                            if (MenuView.NewMision())
+                                GameController.StartNewMission(player);
+
+                            break;
+                        }
+
+                    case 3:
                         return;
-
-                    default:
-                        Console.WriteLine("Opción no válida.");
-                        break;
                 }
-
             }
         }
-
-        public static void LoadGame()
-        {
-            // Iniciar partida
-            //var courierClasses =  GetGameData<CourierClass>("Classes.json");
-           // var enemies = GetGameData<Enemy>("Enemies.json");
-           // var items = GetGameData<Item>("Items.json");
-           // var couriers = GetGameData<Player>("Couriers.json");
-            //var rooms = GetGameData<Room>("Rooms.json");
-        }
-
-        public static void ShowCouriers()
-        {
-            var couriers = GetGameData<Player>("Couriers.json");
-            GetCourier(couriers);
-        }
-
-        public static void CreateCourier()
-        {
-            ShowClasses();
-        }
     }
-
 }
