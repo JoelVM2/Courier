@@ -26,8 +26,7 @@ namespace Courier
                 switch (opc)
                 {
                     case 1:
-                        // añadir validación, en caso de no tener ningun personaje creado deshabilitar esta opcion
-                        //ShowCouriers();
+                    
                         ShowCouriers();
                         break;
                     case 2:
