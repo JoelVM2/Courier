@@ -7,6 +7,10 @@ namespace Courier
 {
     class Program
     {
+
+
+        // Al crear un nuevo personaje guardarlo en json de couriers
+        // Añadir planta de la sala y boss Room
         static void Main(string[] args)
         {
             MenuView.IntroMenu();

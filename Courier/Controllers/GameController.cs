@@ -52,11 +52,10 @@ namespace Courier.Controllers
         public static void FightEnemy(Player player, Enemy enemy)
         {
             Console.Clear();
-            Console.WriteLine($"⚔️ COMBATE CONTRA {enemy.Name}\n");
+            Console.WriteLine($"COMBATE CONTRA {enemy.Name}\n");
 
             while (enemy.Health > 0 && player.Health > 0)
             {
-                // TURNO JUGADOR
                 double dmgToEnemy = Math.Max(1, player.TotalAttack - enemy.Armor);
                 enemy.Health -= dmgToEnemy;
 
@@ -66,7 +65,6 @@ namespace Courier.Controllers
                 if (enemy.Health <= 0)
                     break;
 
-                // TURNO ENEMIGO
                 double dmgToPlayer = Math.Max(1, enemy.Attack - player.TotalArmor);
                 player.Health -= dmgToPlayer;
 

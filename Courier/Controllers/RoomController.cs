@@ -9,12 +9,6 @@ namespace Courier.Controllers
     {
         private static readonly Random rnd = new Random();
 
-        private static readonly List<int> PuzzleDigits = new() { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-        private static readonly List<char> PuzzleSymbols = new()
-        {
-            '▲', '■', '●', '◆', '★'
-        };
-
         private static readonly List<string> PasswordWords = new()
         {
             "ACCESS",
@@ -32,9 +26,22 @@ namespace Courier.Controllers
 
         public static void ResolveRoom(Player player, List<Room> rooms, int floor)
         {
-            Room room = GetRandomRoom(rooms);
-            player.CurrentRoom = floor;
+            Room room;
 
+            if (floor == 10)
+            {
+                var bossRooms = rooms.Where(r => r.Type.Equals("Boss")).ToList();
+                room = bossRooms[rnd.Next(bossRooms.Count)];
+            }
+            else
+            {
+                do
+                {
+                    room = GetRandomRoom(rooms);
+                } while (room.Type.Equals("Boss"));
+            }
+
+            player.CurrentRoom = floor;
             Console.Clear();
             Console.WriteLine(room.Icon);
 
@@ -90,9 +97,6 @@ namespace Courier.Controllers
 
                 HandleDrop(drop, player);
                 enemies.Remove(target);
-
-                Console.WriteLine("\nPulsa ENTER...");
-                Console.ReadLine();
             }
         }
 
@@ -140,23 +144,67 @@ namespace Courier.Controllers
                 else
                     player.EquippedArmor = item;
 
-                Console.WriteLine("✔ Equipado correctamente");
+                Console.WriteLine("Equipado correctamente");
             }
             else
             {
-                Console.WriteLine("❌ Lo dejas en el suelo");
+                Console.WriteLine("Lo dejas en el suelo");
             }
         }
 
         private static List<Enemy> GenerateRoomEnemies(Room room, int floor)
-        {
+        {   // Boss Room
             var baseEnemies = GameController.GetGameData<Enemy>("Enemies.json");
+            var enemies = new List<Enemy>();
 
-            return Enumerable.Range(0, room.EnemyCount)
-                .Select(_ => GameController.ScaleEnemy(
-                    baseEnemies.OrderBy(e => rnd.Next()).First(), floor))
-                .ToList();
+            double roomMultiplier = 1 + floor * 0.1;
+
+            if (room.Type.Equals("Boss"))
+            {
+                var boss = GameController.ScaleEnemy(
+                    baseEnemies.OrderBy(e => rnd.Next()).First(),
+                    floor
+                );
+
+                boss.Health = (int)(boss.Health * roomMultiplier);
+                boss.Attack = (int)(boss.Attack * roomMultiplier);
+                boss.Armor = (int)(boss.Armor * roomMultiplier);
+
+                boss.Health *= 3;
+                boss.Attack *= 3;
+                boss.Armor *= 3;
+
+                enemies.Add(boss);
+
+                var extra = GameController.ScaleEnemy(
+                    baseEnemies.OrderBy(e => rnd.Next()).First(), floor);
+
+                extra.Health = (int)(extra.Health * roomMultiplier);
+                extra.Attack = (int)(extra.Attack * roomMultiplier);
+                extra.Armor = (int)(extra.Armor * roomMultiplier);
+
+                enemies.Add(extra);
+            }
+            else
+            {
+                enemies.AddRange(
+                    Enumerable.Range(0, room.EnemyCount)
+                        .Select(_ =>
+                        {
+                            var e = GameController.ScaleEnemy(
+                                baseEnemies.OrderBy(x => rnd.Next()).First(), floor);
+                            e.Health = (int)(e.Health * roomMultiplier);
+                            e.Attack = (int)(e.Attack * roomMultiplier);
+                            e.Armor = (int)(e.Armor * roomMultiplier);
+                            return e;
+                        })
+                        .ToList()
+                );
+            }
+
+            return enemies;
         }
+
 
         private static void ShowEnemies(List<Enemy> enemies)
         {
@@ -192,7 +240,7 @@ namespace Courier.Controllers
             Console.WriteLine("╔════════════════════════════╗");
             Console.WriteLine("║   SISTEMA BLOQUEADO        ║");
             Console.WriteLine("╠════════════════════════════╣");
-            Console.WriteLine($"║   ESCRIBE: {word,-10}   ║");
+            Console.WriteLine($"║   ESCRIBE: {word,-10}     ║");
             Console.WriteLine("║   TIEMPO: 4 SEGUNDOS       ║");
             Console.WriteLine("╚════════════════════════════╝");
             Console.Write("\n> ");
@@ -205,12 +253,12 @@ namespace Courier.Controllers
             double allowedTime = 4 + (player.HackSkill / 100.0);
             if (elapsed <= allowedTime && input == word)
             {
-                Console.WriteLine("✔ ACCESO CONCEDIDO");
+                Console.WriteLine("ACCESO CONCEDIDO");
                 Console.ReadLine();
                 return true;
             }
 
-            Console.WriteLine("✖ ACCESO DENEGADO");
+            Console.WriteLine("ACCESO DENEGADO");
             ApplyPasswordPenalty(player);
             Console.ReadLine();
             return false;
@@ -228,7 +276,7 @@ namespace Courier.Controllers
         {
             Random rnd = new Random();
 
-            int maxValue = Math.Min(2000, 200 + floor * 100);
+            int maxValue = Math.Min(100, 200 + floor * 100);
             int a = rnd.Next(0, maxValue);
             int b = rnd.Next(0, maxValue);
 
@@ -236,7 +284,6 @@ namespace Courier.Controllers
 
             int correctResult = isSum ? a + b : a - b;
 
-            // Evitar negativos en resta
             if (!isSum && correctResult < 0)
             {
                 (a, b) = (b, a);
@@ -248,11 +295,11 @@ namespace Courier.Controllers
             Console.WriteLine("║      PANEL DE SEGURIDAD    ║");
             Console.WriteLine("╠════════════════════════════╣");
             Console.WriteLine($"║   RESUELVE:               ║");
-            Console.WriteLine($"║   {a} {(isSum ? "+" : "-")} {b} = ?{"",-8}║");
+            Console.WriteLine($"║   {a} {(isSum ? "+" : "-")} {b} = ?{"",-8}    ║");
             Console.WriteLine("╚════════════════════════════╝");
             Console.Write("\n> ");
 
-            double baseTime = 3;
+            double baseTime = 6;
             double bonusTime = player.HackSkill / 50.0;
             double maxTime = baseTime + bonusTime;
 

@@ -13,13 +13,13 @@ namespace Courier.View
         public static void IntroMenu()
         {
             Console.Clear();
-            Console.WriteLine("                            ██████╗ ██████╗ ██╗   ██╗██████╗ ██╗███████╗██████╗ \r\n                           ██╔════╝██╔═══██╗██║   ██║██╔══██╗██║██╔════╝██╔══██╗\r\n                           ██║     ██║   ██║██║   ██║██████╔╝██║█████╗  ██████╔╝\r\n                           ██║     ██║   ██║██║   ██║██╔══██╗██║██╔══╝  ██╔══██╗\r\n                           ╚██████╗╚██████╔╝╚██████╔╝██║  ██║██║███████╗██║  ██║\r\n                            ╚═════╝ ╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚═╝╚══════╝╚═╝  ╚═╝\r\n\r\n                                     Presiona ENTER para comenzar\r\n");
+            Console.WriteLine("\r\n\r\n\r\n\r\n                            ██████╗ ██████╗ ██╗   ██╗██████╗ ██╗███████╗██████╗ \r\n                           ██╔════╝██╔═══██╗██║   ██║██╔══██╗██║██╔════╝██╔══██╗\r\n                           ██║     ██║   ██║██║   ██║██████╔╝██║█████╗  ██████╔╝\r\n                           ██║     ██║   ██║██║   ██║██╔══██╗██║██╔══╝  ██╔══██╗\r\n                           ╚██████╗╚██████╔╝╚██████╔╝██║  ██║██║███████╗██║  ██║\r\n                            ╚═════╝ ╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚═╝╚══════╝╚═╝  ╚═╝\r\n\r\n                                     Presiona ENTER para comenzar\r\n");
         }
 
         public static void ShowMenu()
         {
             Console.Clear();
-            Console.WriteLine("                                      ╔════════════════════════╗");
+            Console.WriteLine("\n                                      ╔════════════════════════╗");
             Console.WriteLine("                                      ║        COURIER         ║");
             Console.WriteLine("                                      ╠════════════════════════╣");
             Console.WriteLine("                                      ║ 1. Cargar Partida      ║");
@@ -57,7 +57,7 @@ namespace Courier.View
             return Console.ReadLine() == "1";
         }
 
-        // Al crear un nuevo personaje guardarlo en json de couriers
+     
         public static int ShowClasses()
         {
             Console.WriteLine("                                      ╔════════════════════════════════╗");
