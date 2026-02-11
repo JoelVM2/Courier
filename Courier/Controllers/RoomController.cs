@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using static Courier.View.MenuView;
 
 namespace Courier.Controllers
 {
@@ -27,7 +28,6 @@ namespace Courier.Controllers
         public static void ResolveRoom(Player player, List<Room> rooms, int floor)
         {
             Room room;
-
             if (floor == 10)
             {
                 var bossRooms = rooms.Where(r => r.Type.Equals("Boss")).ToList();
@@ -43,6 +43,7 @@ namespace Courier.Controllers
 
             player.CurrentRoom = floor;
             Console.Clear();
+            ShowRoomHeader(player);
             Console.WriteLine(room.Icon);
 
             bool eventSuccess = true;
@@ -58,7 +59,7 @@ namespace Courier.Controllers
                     break;
             }
 
-            if (player.Health <= 0)
+            if (player.CurrentHealth <= 0)
                 return;
 
             if (room.EnemyCount > 0)
@@ -80,9 +81,10 @@ namespace Courier.Controllers
                 });
             }
 
-            while (enemies.Any() && player.Health > 0)
+            while (enemies.Any() && player.CurrentHealth > 0)
             {
                 Console.Clear();
+                ShowRoomHeader(player);
                 Console.WriteLine(room.Icon);
                 ShowEnemies(enemies);
 
@@ -90,7 +92,11 @@ namespace Courier.Controllers
                 GameController.FightEnemy(player, target);
 
                 if (player.Health <= 0)
+                {
+                    ShowDeath();
+
                     return;
+                }
 
                 Item drop = GameController.ScaleItem(
                     items.OrderBy(_ => rnd.Next()).First(), floor);
@@ -108,7 +114,7 @@ namespace Courier.Controllers
             switch (item.Type)
             {
                 case ItemType.Potion:
-                    player.Health += item.Value;
+                    player.CurrentHealth += item.Value;
                     Console.WriteLine($"Te curas {item.Value} de vida");
                     break;
 
@@ -153,7 +159,7 @@ namespace Courier.Controllers
         }
 
         private static List<Enemy> GenerateRoomEnemies(Room room, int floor)
-        {   // Boss Room
+        { 
             var baseEnemies = GameController.GetGameData<Enemy>("Enemies.json");
             var enemies = new List<Enemy>();
 
@@ -209,7 +215,7 @@ namespace Courier.Controllers
         private static void ShowEnemies(List<Enemy> enemies)
         {
             enemies
-                .Select((e, i) => $"{i + 1}. {e.Name} | HP: {e.Health} | ATK: {e.Attack}")
+                .Select((e, i) => $"{i + 1}. {e.Name} | HP: {e.Health.ToGameFormat()} | ATK: {e.Attack.ToGameFormat()}")
                 .ToList()
                 .ForEach(Console.WriteLine);
         }
@@ -237,6 +243,8 @@ namespace Courier.Controllers
                 .ToUpperInvariant();
 
             Console.Clear();
+            ShowRoomHeader(player);
+
             Console.WriteLine("╔════════════════════════════╗");
             Console.WriteLine("║   SISTEMA BLOQUEADO        ║");
             Console.WriteLine("╠════════════════════════════╣");
@@ -258,18 +266,9 @@ namespace Courier.Controllers
                 return true;
             }
 
-            Console.WriteLine("ACCESO DENEGADO");
-            ApplyPasswordPenalty(player);
+            ApplyPenalty(player, 0.1, "ACCESO DENEGADO");
             Console.ReadLine();
             return false;
-        }
-
-        private static void ApplyPasswordPenalty(Player player)
-        {
-            double damage = Math.Max(1, player.Health * 0.1);
-            player.Health -= damage;
-
-            Console.WriteLine($"Has recibido {damage} de daño por el fallo.");
         }
 
         private static bool ResolvePuzzleRoom(Player player, int floor)
@@ -291,6 +290,8 @@ namespace Courier.Controllers
             }
 
             Console.Clear();
+            ShowRoomHeader(player);
+
             Console.WriteLine("╔════════════════════════════╗");
             Console.WriteLine("║      PANEL DE SEGURIDAD    ║");
             Console.WriteLine("╠════════════════════════════╣");
@@ -317,21 +318,17 @@ namespace Courier.Controllers
             }
 
             Console.WriteLine("\nERROR EN EL CÁLCULO");
-            ApplyPuzzlePenalty(player);
+            ApplyPenalty(player, 0.15, "Descarga eléctrica");
             Console.ReadLine();
             return false;
         }
 
-        private static void ApplyPuzzlePenalty(Player player)
+        private static void ApplyPenalty(Player player, double percentage, string penaltyName)
         {
-            double damage = Math.Max(1, player.Health * 0.15);
-            player.Health -= damage;
+            double damage = Math.Max(1, player.CurrentHealth * percentage);
+            player.CurrentHealth -= damage;
 
-            Console.WriteLine($"Descarga eléctrica: -{damage} de vida");
+            Console.WriteLine($"{penaltyName}: -{damage.ToGameFormat()} de vida");
         }
-
-
-
-
     }
 }

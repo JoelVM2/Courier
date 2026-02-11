@@ -2,9 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
-
+using static Courier.Controllers.HelperController;
 namespace Courier.View
 {
     internal class MenuView
@@ -30,31 +31,37 @@ namespace Courier.View
             Console.Write("                                      Selecciona una opción: ");
 
         }
-        // Console.WriteLine("   ╭┳┳┳┳┳┳┳╮   \r\n   ┃╯╯╯╯╯╰╰┃   \r\n  ╭╋┳━┳━┳━┳╋╮  \r\n  ┃┓┃▇┃ ┃▇┃┏┃  \r\n  ╰╮╰━╯┊╰━╯╭╯  \r\n   ┃╱╰━━━╯╲┃   \r\n  ┏┫╰━━━━━╯┣┓  \r\n━━┫╰┓╲╰━╯╱┏╯┣━━");
 
         public static bool NewMision()
         {
+            string opcion;
 
-            Console.Clear();
-            Console.WriteLine("                                       NUEVA MISIÓN DISPONIBLE    ");
-            Console.WriteLine("                                      ╔═══════════════════════╗");
-            Console.WriteLine("                                      ║                       ║");
-            Console.WriteLine("                                      ║       ╭┳┳┳┳┳┳┳╮       ║");
-            Console.WriteLine("                                      ║       ┃╯╯╯╯╯╰╰┃       ║");
-            Console.WriteLine("                                      ║      ╭╋┳━┳━┳━┳╋╮      ║");
-            Console.WriteLine("                                      ║      ┃┓┃▇┃ ┃▇┃┏┃      ║");
-            Console.WriteLine("                                      ║      ╰╮╰━╯┊╰━╯╭╯      ║");
-            Console.WriteLine("                                      ║       ┃╱ ━━━ ╲┃       ║");
-            Console.WriteLine("                                      ║      ┏┫ ━━━━━ ┣┓      ║");
-            Console.WriteLine("                                      ║   ┏━━┫╰┓╲ ━ ╱┏╯┣━━┓   ║");
-            Console.WriteLine("                                      ║   ┃               ┃   ║");
-            Console.WriteLine("                                      ╠═══════════════════════╣");
-            Console.WriteLine("                                      ║   ¿Estás preparado?   ║");
-            Console.WriteLine("                                      ║ 1. Sí.                ║");
-            Console.WriteLine("                                      ║ 2. No.                ║");
-            Console.WriteLine("                                      ╚═══════════════════════╝");
+            do
+            {
+                Console.Clear();
+                Console.WriteLine("                                       NUEVA MISIÓN DISPONIBLE    ");
+                Console.WriteLine("                                      ╔═══════════════════════╗");
+                Console.WriteLine("                                      ║                       ║");
+                Console.WriteLine("                                      ║       ╭┳┳┳┳┳┳┳╮       ║");
+                Console.WriteLine("                                      ║       ┃╯╯╯╯╯╰╰┃       ║");
+                Console.WriteLine("                                      ║      ╭╋┳━┳━┳━┳╋╮      ║");
+                Console.WriteLine("                                      ║      ┃┓┃▇┃ ┃▇┃┏┃      ║");
+                Console.WriteLine("                                      ║      ╰╮╰━╯┊╰━╯╭╯      ║");
+                Console.WriteLine("                                      ║       ┃╱ ━━━ ╲┃       ║");
+                Console.WriteLine("                                      ║      ┏┫ ━━━━━ ┣┓      ║");
+                Console.WriteLine("                                      ║   ┏━━┫╰┓╲ ━ ╱┏╯┣━━┓   ║");
+                Console.WriteLine("                                      ║   ┃               ┃   ║");
+                Console.WriteLine("                                      ╠═══════════════════════╣");
+                Console.WriteLine("                                      ║   ¿Estás preparado?   ║");
+                Console.WriteLine("                                      ║ 1. Sí.                ║");
+                Console.WriteLine("                                      ║ 2. No.                ║");
+                Console.WriteLine("                                      ╚═══════════════════════╝");
 
-            return Console.ReadLine() == "1";
+                opcion = Console.ReadLine();
+
+        } while (opcion != "1" && opcion != "2");
+
+          return opcion == "1";
         }
 
      
@@ -100,10 +107,19 @@ namespace Courier.View
             Console.WriteLine("                                      ║     / \\                        ║");
             Console.WriteLine("                                      ╚════════════════════════════════╝");
 
-            Console.WriteLine();
-            Console.Write("                                      Selecciona una clase: ");
+            int choice;
+            while (true)
+            {
+                Console.Write("                                      Selecciona una clase: ");
+                string input = Console.ReadLine()?.Trim();
 
-            return int.Parse(Console.ReadLine());
+                if (int.TryParse(input, out choice) && choice >= 1 && choice <= 3)
+                    break;
+
+                Console.WriteLine("Debes escribir un número entre 1 y 3.");
+            }
+
+            return choice;
         }
 
         public static Player GetCourier(List<Player> couriers) 
@@ -120,9 +136,9 @@ namespace Courier.View
                 int i = x.Index;
 
                 Console.WriteLine($"                                      ║ {i + 1}. {c.Class,-27} ║");
-                Console.WriteLine($"                                      ║    Health: {c.Health,-16}    ║");
-                Console.WriteLine($"                                      ║    Attack: {c.Attack,-16}    ║");
-                Console.WriteLine($"                                      ║    Armor: {c.Armor,-17}    ║");
+                Console.WriteLine($"                                      ║    Health: {c.Health.ToGameFormat(),-16}    ║");
+                Console.WriteLine($"                                      ║    Attack: {c.Attack.ToGameFormat(),-16}    ║");
+                Console.WriteLine($"                                      ║    Armor: {c.Armor.ToGameFormat(),-17}    ║");
                 Console.WriteLine($"                                      ║    EvadeChance: {c.EvadeChance}%{"",-7}     ║");
                 Console.WriteLine($"                                      ║    HackSkill: {c.HackSkill}%{"",-8}      ║");
                 Console.WriteLine($"                                      ║    CritChance: {c.CritChance}%{"",-8}     ║");
@@ -139,9 +155,7 @@ namespace Courier.View
             Console.Write("                                      Selecciona una clase: ");
 
             int choice;
-            while (!int.TryParse(Console.ReadLine(), out choice)
-                   || choice < 1
-                   || choice > couriers.Count) ;
+            while (!int.TryParse(Console.ReadLine(), out choice) || choice < 1 || choice > couriers.Count) ;
 
             return couriers[choice - 1];
         }
@@ -165,14 +179,48 @@ namespace Courier.View
             Console.ReadLine();
         }
 
-        public static void ShowVictory()
+        public static void ShowVictory(int health, int attack, int armor)
+        {
+
+            Console.WriteLine("\n                =================================");
+            Console.WriteLine("                      PAQUETE ENTREGADO           ");
+            Console.WriteLine("                =================================");
+            Console.WriteLine("                ¡Has recibido un bono por tu victoria!");
+            Console.WriteLine($"                +{health} de vida");
+            Console.WriteLine($"                +{attack} de ataque");
+            Console.WriteLine($"                +{armor} de armadura");
+            Console.WriteLine("\n                Pulsa ENTER para continuar...");
+            Console.ReadLine();
+        }
+
+        public static void ShowRoomHeader(Player player)
+        {
+            Console.WriteLine($"                                ═════════ Planta {player.CurrentRoom} ═════════\n");
+        }
+
+        public static string GetCourierName()
         {
             Console.Clear();
-            Console.WriteLine("=================================");
-            Console.WriteLine("      PAQUETE ENTREGADO           ");
-            Console.WriteLine("=================================");
-            Console.WriteLine("\nPulsa ENTER para continuar");
-            Console.ReadLine();
+            string name;
+
+            do
+            {
+                Console.WriteLine("                     ═════════ Escoge un nombre para tu jugador ═════════\n");
+                Console.Write("                     ▶ ");
+
+                name = Console.ReadLine()?.Trim();
+
+                if (string.IsNullOrWhiteSpace(name))
+                {
+                    Console.WriteLine("\n                   El nombre no puede estar vacío.\n");
+                    Console.WriteLine("                     Presiona ENTER para continuar...");
+                    Console.ReadLine();
+                    Console.Clear();
+                }
+
+            } while (string.IsNullOrWhiteSpace(name));
+
+            return name;
         }
 
     }

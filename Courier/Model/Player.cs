@@ -23,12 +23,21 @@ namespace Courier.Model
         public double Armor { get; set; }
 
         [JsonIgnore]
+        public double CurrentHealth { get; set; }
+
+        [JsonIgnore]
+        public double CurrentAttack { get; set; }
+
+        [JsonIgnore]
+        public double CurrentArmor { get; set; }
+
+        [JsonIgnore]
         public double TotalAttack =>
-            Attack + (EquippedWeapon?.Value ?? 0);
+            CurrentAttack + (EquippedWeapon?.Value ?? 0);
 
         [JsonIgnore]
         public double TotalArmor =>
-            Armor + (EquippedArmor?.Value ?? 0);
+            CurrentArmor + (EquippedArmor?.Value ?? 0);
 
         public int CurrentRoom { get; set; }
         public int CurrentBuilding { get; set; }
@@ -40,7 +49,17 @@ namespace Courier.Model
 
         public List<Item> Items { get; set; } = new();
 
+        [JsonIgnore]
         public Item EquippedWeapon { get; set; }
+
+        [JsonIgnore]
         public Item EquippedArmor { get; set; }
+
+        public void ResetToBase()
+        {
+            CurrentHealth = Health;
+            CurrentAttack = Attack;
+            CurrentArmor = Armor;
+        }
     }
 }

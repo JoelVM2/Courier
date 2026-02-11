@@ -1,7 +1,8 @@
 ﻿using Courier.Model;
 using System.Reflection;
 using System.Text.Json;
-
+using static Courier.View.MenuView;
+using static Courier.Controllers.HelperController;
 namespace Courier.Controllers
 {
     internal class GameController
@@ -54,22 +55,22 @@ namespace Courier.Controllers
             Console.Clear();
             Console.WriteLine($"COMBATE CONTRA {enemy.Name}\n");
 
-            while (enemy.Health > 0 && player.Health > 0)
+            while (enemy.Health > 0 && player.CurrentHealth > 0)
             {
                 double dmgToEnemy = Math.Max(1, player.TotalAttack - enemy.Armor);
                 enemy.Health -= dmgToEnemy;
 
-                Console.WriteLine($"▶ Atacas a {enemy.Name} por {dmgToEnemy} daño");
-                Console.WriteLine($"   Vida enemigo: {Math.Max(0, enemy.Health)}");
+                Console.WriteLine($"▶ Atacas a {enemy.Name} por {dmgToEnemy.ToGameFormat()} daño");
+                Console.WriteLine($"   Vida enemigo: {Math.Max(0, enemy.Health).ToGameFormat()}");
 
                 if (enemy.Health <= 0)
                     break;
 
                 double dmgToPlayer = Math.Max(1, enemy.Attack - player.TotalArmor);
-                player.Health -= dmgToPlayer;
+                player.CurrentHealth -= dmgToPlayer;
 
-                Console.WriteLine($"◀ {enemy.Name} te ataca por {dmgToPlayer}");
-                Console.WriteLine($"   Tu vida: {Math.Max(0, player.Health)}");
+                Console.WriteLine($"◀ {enemy.Name} te ataca por {dmgToPlayer.ToGameFormat()}");
+                Console.WriteLine($"   Tu vida: {Math.Max(0, player.CurrentHealth).ToGameFormat()}");
 
                 Console.WriteLine("\nPulsa ENTER para el siguiente turno...");
                 Console.ReadLine();
@@ -96,20 +97,24 @@ namespace Courier.Controllers
             player.Items.Add(item);
         }
 
-        public static bool StartMission(Player player)
+        public static bool StartMission(Player player, double baseHealth, double baseAttack, double baseArmor)
         {
             var rooms = GetGameData<Room>("Rooms.json");
 
-            for (int floor = 1; floor <= 10; floor++)
-            {
-                RoomController.ResolveRoom(player, rooms, floor);
+            bool survived = Enumerable.Range(1, 10)
+                .All(floor =>
+                {
+                    RoomController.ResolveRoom(player, rooms, floor);
+                    return player.CurrentHealth > 0;
+                });
 
-                if (player.Health <= 0)
-                    return false;
-            }
+            if (!survived)
+                return false;
 
+            RewardPlayer(player, baseHealth, baseAttack, baseArmor);
             return true;
         }
+
 
 
         public static Mission GetRandomMission()
@@ -121,6 +126,12 @@ namespace Courier.Controllers
 
         public static void StartNewMission(Player player)
         {
+            double baseHealth = player.Health;
+            double baseAttack = player.Attack;
+            double baseArmor = player.Armor;
+
+            player.ResetToBase();
+
             var mission = GetRandomMission();
 
             Console.Clear();
@@ -129,15 +140,29 @@ namespace Courier.Controllers
             Console.WriteLine("\nPulsa ENTER para comenzar...");
             Console.ReadLine();
 
-            StartMission(player);
+            StartMission(player, baseHealth, baseAttack, baseArmor);
         }
 
-        public static void RewardPlayer(Player player)
+        public static void RewardPlayer(Player player, double baseHealth, double baseAttack, double baseArmor)
         {
-            player.Health += 1;
-            player.Attack += 1;
-            player.Armor += 1;
+            int bonusHealth = (int)Math.Ceiling(baseHealth * 0.10);
+            int bonusAttack = (int)Math.Ceiling(baseAttack * 0.10);
+            int bonusArmor = (int)Math.Ceiling(baseArmor * 0.10);
+
+            player.Health += bonusHealth;
+            player.Attack += bonusAttack;
+            player.Armor += bonusArmor;
+
+            player.Health = Math.Round(player.Health, 1);
+            player.Attack = Math.Round(player.Attack, 1);
+            player.Armor = Math.Round(player.Armor, 1);
+
+            player.ResetToBase();
+
+            ShowVictory(bonusHealth, bonusAttack, bonusArmor);
+            SaveCourier(player);
         }
+
 
         public static void SaveGameData<T>(string jsonFileName, List<T> data)
         {
@@ -165,7 +190,5 @@ namespace Courier.Controllers
 
             SaveGameData("Couriers.json", couriers);
         }
-
-
     }
 }

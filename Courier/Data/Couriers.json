@@ -1,17 +1,17 @@
 [
-    {
-      "Name": "Courier Default",
-      "Class": "Runner",
-      "Health": 10,
-      "Attack": 3,
-      "Armor": 1,
-      "CurrentRoom": 1,
-      "CurrentBuilding": 1,
-      "HasPackage": true,
-      "EvadeChance": 50,
-      "HackSkill": 40,
-      "CritChance": 20,
-      "Items": [],
-      "Icon": " o \n/|>\n/ \\"
-    }
-  ]
+  {
+    "Name": "Courier Default",
+    "Class": "Runner",
+    "Icon": " o \n/|\u003E\n/ \\",
+    "Health": 11,
+    "Attack": 4,
+    "Armor": 2,
+    "CurrentRoom": 4,
+    "CurrentBuilding": 1,
+    "HasPackage": true,
+    "EvadeChance": 50,
+    "HackSkill": 40,
+    "CritChance": 20,
+    "Items": []
+  }
+]

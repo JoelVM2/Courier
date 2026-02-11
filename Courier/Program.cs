@@ -2,15 +2,11 @@
 using Courier.Model;
 using Courier.View;
 using System.Linq;
-
+using static Courier.View.MenuView;
 namespace Courier
 {
     class Program
     {
-
-
-        // Al crear un nuevo personaje guardarlo en json de couriers
-        // Añadir planta de la sala y boss Room
         static void Main(string[] args)
         {
             MenuView.IntroMenu();
@@ -45,7 +41,7 @@ namespace Courier
 
                             Player player = new Player
                             {
-                                Name = "Courier",
+                                Name = GetCourierName(),
                                 Class = (CourierClassEnum)(classChoice - 1),
                                 Health = chosenClass.Health,
                                 Attack = chosenClass.Attack,
@@ -59,7 +55,7 @@ namespace Courier
                                 CurrentRoom = 0,
                                 CurrentBuilding = 1
                             };
-
+                            GameController.SaveCourier(player);
                             if (MenuView.NewMision())
                                 GameController.StartNewMission(player);
 
