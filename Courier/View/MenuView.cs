@@ -195,7 +195,7 @@ namespace Courier.View
 
         public static void ShowRoomHeader(Player player)
         {
-            Console.WriteLine($"                                ═════════ Planta {player.CurrentRoom} ═════════\n");
+            Console.WriteLine($"                        ═════════ Planta {player.CurrentRoom} ═════════\n");
         }
 
         public static string GetCourierName()

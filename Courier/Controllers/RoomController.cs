@@ -69,7 +69,6 @@ namespace Courier.Controllers
         private static void ResolveEnemyRoom(Room room, Player player, int floor, bool eventSuccess)
         {
             var items = GameController.GetGameData<Item>("Items.json");
-
             List<Enemy> enemies = GenerateRoomEnemies(room, floor);
 
             if (!eventSuccess)
@@ -81,6 +80,9 @@ namespace Courier.Controllers
                 });
             }
 
+            double totalDamageDone = 0;
+            var defeatedEnemies = new List<Enemy>();
+
             while (enemies.Any() && player.CurrentHealth > 0)
             {
                 Console.Clear();
@@ -89,22 +91,52 @@ namespace Courier.Controllers
                 ShowEnemies(enemies);
 
                 Enemy target = ChooseEnemy(enemies);
+
+                double enemyInitialHealth = target.Health;
                 GameController.FightEnemy(player, target);
+                double damageDone = Math.Max(0, enemyInitialHealth - target.Health);
+                totalDamageDone += damageDone;
 
-                if (player.Health <= 0)
+                if (target.Health <= 0)
                 {
-                    ShowDeath();
+                    defeatedEnemies.Add(target);
+                    enemies.Remove(target);
 
-                    return;
+                    Item drop = GameController.ScaleItem(
+                        items.OrderBy(_ => rnd.Next()).First(), floor);
+
+                    HandleDrop(drop, player);
                 }
 
-                Item drop = GameController.ScaleItem(
-                    items.OrderBy(_ => rnd.Next()).First(), floor);
-
-                HandleDrop(drop, player);
-                enemies.Remove(target);
+                if (player.CurrentHealth <= 0)
+                {
+                    ShowDeath();
+                    return;
+                }
             }
+
+            Console.WriteLine("\n=== RESUMEN DE LA Planta ===");
+            Console.WriteLine($"Daño total hecho: {totalDamageDone.ToGameFormat()}");
+
+            if (defeatedEnemies.Any())
+            {
+                var groupByType = defeatedEnemies
+                    .GroupBy(e => e.Type)
+                    .Select(g => $"{g.Key}: {g.Count()}")
+                    .ToList();
+
+                Console.WriteLine("Enemigos derrotados por tipo:");
+                groupByType.ForEach(Console.WriteLine);
+            }
+            else
+            {
+                Console.WriteLine("No derrotaste enemigos en esta sala.");
+            }
+
+            Console.WriteLine("\nPulsa ENTER para continuar...");
+            Console.ReadLine();
         }
+
 
         private static void HandleDrop(Item item, Player player)
         {
@@ -215,10 +247,12 @@ namespace Courier.Controllers
         private static void ShowEnemies(List<Enemy> enemies)
         {
             enemies
+                .OrderByDescending(e => e.Health)
                 .Select((e, i) => $"{i + 1}. {e.Name} | HP: {e.Health.ToGameFormat()} | ATK: {e.Attack.ToGameFormat()}")
                 .ToList()
                 .ForEach(Console.WriteLine);
         }
+
 
         private static Enemy ChooseEnemy(List<Enemy> enemies)
         {
@@ -245,12 +279,12 @@ namespace Courier.Controllers
             Console.Clear();
             ShowRoomHeader(player);
 
-            Console.WriteLine("╔════════════════════════════╗");
-            Console.WriteLine("║   SISTEMA BLOQUEADO        ║");
-            Console.WriteLine("╠════════════════════════════╣");
-            Console.WriteLine($"║   ESCRIBE: {word,-10}     ║");
-            Console.WriteLine("║   TIEMPO: 4 SEGUNDOS       ║");
-            Console.WriteLine("╚════════════════════════════╝");
+            Console.WriteLine("                     ╔════════════════════════════╗");
+            Console.WriteLine("                     ║   SISTEMA BLOQUEADO        ║");
+            Console.WriteLine("                     ╠════════════════════════════╣");
+            Console.WriteLine($"                     ║   ESCRIBE: {word,-10}     ║");
+            Console.WriteLine("                     ║   TIEMPO: 4 SEGUNDOS       ║");
+            Console.WriteLine("                     ╚════════════════════════════╝");
             Console.Write("\n> ");
 
             var start = DateTime.Now;

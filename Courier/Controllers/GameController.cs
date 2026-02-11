@@ -57,28 +57,32 @@ namespace Courier.Controllers
 
             while (enemy.Health > 0 && player.CurrentHealth > 0)
             {
+
                 double dmgToEnemy = Math.Max(1, player.TotalAttack - enemy.Armor);
                 enemy.Health -= dmgToEnemy;
 
                 Console.WriteLine($"▶ Atacas a {enemy.Name} por {dmgToEnemy.ToGameFormat()} daño");
-                Console.WriteLine($"   Vida enemigo: {Math.Max(0, enemy.Health).ToGameFormat()}");
+                Console.WriteLine($"   Vida enemigo: {Math.Max(0, enemy.Health).ToGameFormat()}\n");
 
                 if (enemy.Health <= 0)
+                {
+                    Console.WriteLine($"Tu vida: {player.CurrentHealth.ToGameFormat()}");
+                    Console.WriteLine($"¡Has derrotado a {enemy.Name}!");
                     break;
+                }
 
                 double dmgToPlayer = Math.Max(1, enemy.Attack - player.TotalArmor);
                 player.CurrentHealth -= dmgToPlayer;
 
                 Console.WriteLine($"◀ {enemy.Name} te ataca por {dmgToPlayer.ToGameFormat()}");
-                Console.WriteLine($"   Tu vida: {Math.Max(0, player.CurrentHealth).ToGameFormat()}");
+                Console.WriteLine($"   Tu vida: {Math.Max(0, player.CurrentHealth).ToGameFormat()}\n");
 
-                Console.WriteLine("\nPulsa ENTER para el siguiente turno...");
+                Console.WriteLine("Pulsa ENTER para el siguiente turno...");
                 Console.ReadLine();
                 Console.Clear();
             }
         }
-
-
+        //?¿?¿
         public static void GiveItemToPlayer(Item item, Player player)
         {
             switch (item.Type)
