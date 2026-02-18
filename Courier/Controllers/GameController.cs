@@ -57,8 +57,14 @@ namespace Courier.Controllers
 
             while (enemy.Health > 0 && player.CurrentHealth > 0)
             {
-
                 double dmgToEnemy = Math.Max(1, player.TotalAttack - enemy.Armor);
+
+                if (rnd.NextDouble() < player.CritChance / 100.0)
+                {
+                    dmgToEnemy *= 2;
+                    Console.WriteLine("💥 ¡CRÍTICO!");
+                }
+
                 enemy.Health -= dmgToEnemy;
 
                 Console.WriteLine($"▶ Atacas a {enemy.Name} por {dmgToEnemy.ToGameFormat()} daño");
@@ -72,17 +78,37 @@ namespace Courier.Controllers
                 }
 
                 double dmgToPlayer = Math.Max(1, enemy.Attack - player.TotalArmor);
-                player.CurrentHealth -= dmgToPlayer;
 
-                Console.WriteLine($"◀ {enemy.Name} te ataca por {dmgToPlayer.ToGameFormat()}");
-                Console.WriteLine($"   Tu vida: {Math.Max(0, player.CurrentHealth).ToGameFormat()}\n");
+                Console.WriteLine($"◀ {enemy.Name} te ataca...");
+
+                if (rnd.NextDouble() < player.EvadeChance / 100.0)
+                {
+                    Console.WriteLine(" ¡ESQUIVAS EL ATAQUE!");
+                }
+                else
+                {
+                    if (rnd.NextDouble() < 0.10)
+                    {
+                        dmgToPlayer *= 1.5;
+                        Console.WriteLine("  ¡GOLPE CRÍTICO DEL ENEMIGO!");
+                    }
+
+                    player.CurrentHealth -= dmgToPlayer;
+
+                    Console.WriteLine($"   Recibes {dmgToPlayer.ToGameFormat()} daño");
+                    Console.WriteLine($"   Tu vida: {Math.Max(0, player.CurrentHealth).ToGameFormat()}\n");
+                }
+
+                if (player.CurrentHealth <= 0)
+                    break;
 
                 Console.WriteLine("Pulsa ENTER para el siguiente turno...");
                 Console.ReadLine();
                 Console.Clear();
             }
         }
-        //?¿?¿
+
+
         public static void GiveItemToPlayer(Item item, Player player)
         {
             switch (item.Type)
