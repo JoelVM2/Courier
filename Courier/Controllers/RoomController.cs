@@ -262,9 +262,7 @@ namespace Courier.Controllers
             {
                 Console.Write("\nElige enemigo: ");
             }
-            while (!int.TryParse(Console.ReadLine(), out choice)
-                   || choice < 1
-                   || choice > enemies.Count);
+            while (!int.TryParse(Console.ReadLine(), out choice) || choice < 1 || choice > enemies.Count);
 
             return enemies[choice - 1];
         }
